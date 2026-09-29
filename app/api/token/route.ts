@@ -77,7 +77,9 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     if (error instanceof Error) {
       console.error(error);
-      return new NextResponse('Could not create a session. Please try again later.', {status: 500,});
+      return new NextResponse('Could not create a session. Please try again later.', {
+        status: 500,
+      });
     }
   }
 }
