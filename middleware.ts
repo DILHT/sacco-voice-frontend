@@ -13,7 +13,10 @@ export function middleware(req: NextRequest) {
       res.cookies.set(ACCESS_COOKIE, fromLink, {
         httpOnly: true, // page JavaScript can't read it
         secure: process.env.NODE_ENV !== 'development', // HTTPS only in production
-        sameSite: 'strict', // not sent on requests from other sites
+        // 'lax', not 'strict': the cookie must be sent after the redirect when a
+        // visitor clicks the link from a PDF, email or another site. Lax still
+        // blocks cross-site POSTs, so other sites can't request tokens.
+        sameSite: 'lax',
         path: '/',
         maxAge: 60 * 60 * 24 * 14, // 14 days
       });
